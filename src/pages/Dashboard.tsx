@@ -2,13 +2,17 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User, DollarSign, TrendingDown, Bell, Settings } from "lucide-react";
+import { LogOut, User, DollarSign, TrendingDown, Bell } from "lucide-react";
+import { AddSubscriptionDialog } from "@/components/dashboard/AddSubscriptionDialog";
+import { SubscriptionsList } from "@/components/dashboard/SubscriptionsList";
+import { useSubscriptions } from "@/hooks/useSubscriptions";
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const { activeSubscriptions, cancelledSubscriptions, monthlySpending, totalSaved, isLoading } = useSubscriptions();
 
   const handleSignOut = async () => {
     await signOut();
@@ -58,13 +62,16 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="mb-8">
-            <h1 className="font-display text-4xl uppercase tracking-tight text-foreground">
-              Welcome back
-            </h1>
-            <p className="mt-2 text-foreground/60">
-              {user?.email}
-            </p>
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h1 className="font-display text-4xl uppercase tracking-tight text-foreground">
+                Welcome back
+              </h1>
+              <p className="mt-2 text-foreground/60">
+                {user?.email}
+              </p>
+            </div>
+            <AddSubscriptionDialog />
           </div>
 
           {/* Stats Cards */}
@@ -77,8 +84,10 @@ const Dashboard = () => {
                 <Bell className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-display text-foreground">0</div>
-                <p className="text-xs text-foreground/40 mt-1">Start tracking to see data</p>
+                <div className="text-3xl font-display text-foreground">
+                  {isLoading ? "..." : activeSubscriptions.length}
+                </div>
+                <p className="text-xs text-foreground/40 mt-1">Being tracked</p>
               </CardContent>
             </Card>
 
@@ -90,8 +99,10 @@ const Dashboard = () => {
                 <DollarSign className="h-4 w-4 text-warning-orange" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-display text-foreground">$0.00</div>
-                <p className="text-xs text-foreground/40 mt-1">This month</p>
+                <div className="text-3xl font-display text-foreground">
+                  ${isLoading ? "..." : monthlySpending.toFixed(2)}
+                </div>
+                <p className="text-xs text-foreground/40 mt-1">Estimated monthly</p>
               </CardContent>
             </Card>
 
@@ -103,7 +114,9 @@ const Dashboard = () => {
                 <TrendingDown className="h-4 w-4 text-cash-green" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-display text-cash-green">0</div>
+                <div className="text-3xl font-display text-cash-green">
+                  {isLoading ? "..." : cancelledSubscriptions.length}
+                </div>
                 <p className="text-xs text-foreground/40 mt-1">Total cancelled</p>
               </CardContent>
             </Card>
@@ -116,27 +129,23 @@ const Dashboard = () => {
                 <DollarSign className="h-4 w-4 text-cash-green" />
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-display text-cash-green">$0.00</div>
-                <p className="text-xs text-foreground/40 mt-1">Lifetime savings</p>
+                <div className="text-3xl font-display text-cash-green">
+                  ${isLoading ? "..." : totalSaved.toFixed(2)}
+                </div>
+                <p className="text-xs text-foreground/40 mt-1">Monthly savings</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Empty State */}
-          <Card className="border-2 border-dashed border-foreground/20 bg-transparent">
-            <CardContent className="flex flex-col items-center justify-center py-16">
-              <div className="rounded-full bg-card p-4 mb-4">
-                <Settings className="h-8 w-8 text-foreground/40" />
-              </div>
-              <CardTitle className="text-xl text-foreground mb-2">
-                No subscriptions yet
+          {/* Subscriptions List */}
+          <Card className="border-2 border-foreground/10 bg-card">
+            <CardHeader>
+              <CardTitle className="font-display text-xl uppercase tracking-tight text-foreground">
+                Your Subscriptions
               </CardTitle>
-              <CardDescription className="text-center max-w-md mb-6">
-                Connect your email or bank account to automatically detect and track your subscriptions.
-              </CardDescription>
-              <Button className="bg-primary text-primary-foreground font-semibold uppercase tracking-widest hover:bg-warning-orange transition-all">
-                Get Started
-              </Button>
+            </CardHeader>
+            <CardContent>
+              <SubscriptionsList />
             </CardContent>
           </Card>
         </motion.div>
