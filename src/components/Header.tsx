@@ -34,6 +34,12 @@ export const Header = () => {
             <NavLink href="#how">How It Works</NavLink>
             {user ? (
               <div className="flex items-center gap-4">
+                <a
+                  href="/dashboard"
+                  className="text-sm text-foreground/60 hover:text-primary transition-colors"
+                >
+                  Dashboard
+                </a>
                 <span className="text-sm text-foreground/60">
                   <User className="inline-block w-4 h-4 mr-1" />
                   {user.email}
@@ -80,6 +86,12 @@ export const Header = () => {
             <NavLink href="#how" mobile>How It Works</NavLink>
             {user ? (
               <>
+                <a
+                  href="/dashboard"
+                  className="text-lg py-2 text-foreground hover:text-primary transition-colors"
+                >
+                  Dashboard
+                </a>
                 <span className="text-sm text-foreground/60 py-2">
                   <User className="inline-block w-4 h-4 mr-1" />
                   {user.email}
