@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <motion.header
@@ -25,12 +32,30 @@ export const Header = () => {
             <NavLink href="#features">Features</NavLink>
             <NavLink href="#pricing">Pricing</NavLink>
             <NavLink href="#how">How It Works</NavLink>
-            <a
-              href="#cta"
-              className="btn-sweep glow-red bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-all hover:-translate-y-0.5 glow-red-hover"
-            >
-              Start Killing
-            </a>
+            {user ? (
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-foreground/60">
+                  <User className="inline-block w-4 h-4 mr-1" />
+                  {user.email}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="text-foreground/60 hover:text-primary"
+                >
+                  <LogOut className="w-4 h-4 mr-1" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <a
+                href="/auth"
+                className="btn-sweep glow-red bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-all hover:-translate-y-0.5 glow-red-hover"
+              >
+                Sign In
+              </a>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -53,12 +78,28 @@ export const Header = () => {
             <NavLink href="#features" mobile>Features</NavLink>
             <NavLink href="#pricing" mobile>Pricing</NavLink>
             <NavLink href="#how" mobile>How It Works</NavLink>
-            <a
-              href="#cta"
-              className="btn-sweep glow-red bg-primary px-6 py-3 text-center text-sm font-semibold uppercase tracking-widest text-primary-foreground"
-            >
-              Start Killing
-            </a>
+            {user ? (
+              <>
+                <span className="text-sm text-foreground/60 py-2">
+                  <User className="inline-block w-4 h-4 mr-1" />
+                  {user.email}
+                </span>
+                <button
+                  onClick={handleSignOut}
+                  className="text-left text-lg py-2 text-foreground/60 hover:text-primary"
+                >
+                  <LogOut className="inline-block w-4 h-4 mr-1" />
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <a
+                href="/auth"
+                className="btn-sweep glow-red bg-primary px-6 py-3 text-center text-sm font-semibold uppercase tracking-widest text-primary-foreground"
+              >
+                Sign In
+              </a>
+            )}
           </motion.div>
         )}
       </div>
