@@ -1,0 +1,148 @@
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogOut, User, DollarSign, TrendingDown, Bell, Settings } from "lucide-react";
+
+const Dashboard = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
+  const getInitials = (email: string) => {
+    return email.substring(0, 2).toUpperCase();
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b-2 border-primary bg-background/80 backdrop-blur-md">
+        <div className="container mx-auto px-8 py-6">
+          <nav className="flex items-center justify-between">
+            <a href="/" className="relative font-display text-3xl uppercase tracking-tighter text-primary">
+              SubKill
+              <span className="absolute -right-5 -top-1 text-sm text-cash-green blink">◉</span>
+            </a>
+
+            <div className="flex items-center gap-4">
+              <Avatar className="h-10 w-10 border-2 border-primary">
+                <AvatarImage src={user?.user_metadata?.avatar_url} />
+                <AvatarFallback className="bg-card text-foreground">
+                  {user?.email ? getInitials(user.email) : <User className="w-4 h-4" />}
+                </AvatarFallback>
+              </Avatar>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSignOut}
+                className="text-foreground/60 hover:text-primary"
+              >
+                <LogOut className="w-4 h-4 mr-1" />
+                Sign Out
+              </Button>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-8 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="mb-8">
+            <h1 className="font-display text-4xl uppercase tracking-tight text-foreground">
+              Welcome back
+            </h1>
+            <p className="mt-2 text-foreground/60">
+              {user?.email}
+            </p>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <Card className="border-2 border-foreground/10 bg-card">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-foreground/60">
+                  Active Subscriptions
+                </CardTitle>
+                <Bell className="h-4 w-4 text-primary" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-display text-foreground">0</div>
+                <p className="text-xs text-foreground/40 mt-1">Start tracking to see data</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-foreground/10 bg-card">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-foreground/60">
+                  Monthly Spending
+                </CardTitle>
+                <DollarSign className="h-4 w-4 text-warning-orange" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-display text-foreground">$0.00</div>
+                <p className="text-xs text-foreground/40 mt-1">This month</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-foreground/10 bg-card">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-foreground/60">
+                  Subscriptions Killed
+                </CardTitle>
+                <TrendingDown className="h-4 w-4 text-cash-green" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-display text-cash-green">0</div>
+                <p className="text-xs text-foreground/40 mt-1">Total cancelled</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-foreground/10 bg-card">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-foreground/60">
+                  Money Saved
+                </CardTitle>
+                <DollarSign className="h-4 w-4 text-cash-green" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-display text-cash-green">$0.00</div>
+                <p className="text-xs text-foreground/40 mt-1">Lifetime savings</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Empty State */}
+          <Card className="border-2 border-dashed border-foreground/20 bg-transparent">
+            <CardContent className="flex flex-col items-center justify-center py-16">
+              <div className="rounded-full bg-card p-4 mb-4">
+                <Settings className="h-8 w-8 text-foreground/40" />
+              </div>
+              <CardTitle className="text-xl text-foreground mb-2">
+                No subscriptions yet
+              </CardTitle>
+              <CardDescription className="text-center max-w-md mb-6">
+                Connect your email or bank account to automatically detect and track your subscriptions.
+              </CardDescription>
+              <Button className="bg-primary text-primary-foreground font-semibold uppercase tracking-widest hover:bg-warning-orange transition-all">
+                Get Started
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;
