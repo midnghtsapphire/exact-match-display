@@ -7,12 +7,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User, DollarSign, TrendingDown, Bell } from "lucide-react";
 import { AddSubscriptionDialog } from "@/components/dashboard/AddSubscriptionDialog";
 import { SubscriptionsList } from "@/components/dashboard/SubscriptionsList";
+import { UpcomingRenewals } from "@/components/dashboard/UpcomingRenewals";
 import { useSubscriptions } from "@/hooks/useSubscriptions";
 
 const Dashboard = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const { activeSubscriptions, cancelledSubscriptions, monthlySpending, totalSaved, isLoading } = useSubscriptions();
+  const { subscriptions, activeSubscriptions, cancelledSubscriptions, monthlySpending, totalSaved, isLoading } = useSubscriptions();
 
   const handleSignOut = async () => {
     await signOut();
@@ -136,6 +137,9 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Upcoming Renewals Alert */}
+          <UpcomingRenewals subscriptions={subscriptions} />
 
           {/* Subscriptions List */}
           <Card className="border-2 border-foreground/10 bg-card">
