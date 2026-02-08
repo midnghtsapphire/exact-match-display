@@ -8,6 +8,7 @@ import { LogOut, User, DollarSign, TrendingDown, Bell } from "lucide-react";
 import { AddSubscriptionDialog } from "@/components/dashboard/AddSubscriptionDialog";
 import { SubscriptionsList } from "@/components/dashboard/SubscriptionsList";
 import { UpcomingRenewals } from "@/components/dashboard/UpcomingRenewals";
+import { SpendingChart } from "@/components/dashboard/SpendingChart";
 import { useSubscriptions } from "@/hooks/useSubscriptions";
 
 const Dashboard = () => {
@@ -137,6 +138,9 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Spending Chart */}
+          <SpendingChart subscriptions={subscriptions} />
 
           {/* Upcoming Renewals Alert */}
           <UpcomingRenewals subscriptions={subscriptions} />
