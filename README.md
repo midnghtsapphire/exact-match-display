@@ -1,82 +1,42 @@
-# Welcome to your Lovable project
+# Exact Match Display (SubKill)
 
-## Project info
+Exact Match Display is a React + Supabase web app for tracking recurring subscriptions, spotting waste, and managing cancellations from a single dashboard.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Website in Test (Vercel)
 
-## How can I edit this code?
+- **Vercel URL:** https://exact-match-display.vercel.app
+- **Deployment automation:** connect this repo to Vercel Git integration so pushes to the active branch deploy automatically.
 
-There are several ways of editing your application.
+## What this repository does
 
-**Use Lovable**
+- Provides a conversion-focused landing page for subscription cost pain points.
+- Supports user authentication (email/password + Google + Apple OAuth via Supabase).
+- Provides an authenticated dashboard to track active subscriptions, spending, renewals, and cancelled services.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## How it can be used now
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Install dependencies: `npm install`
+2. Run locally: `npm run dev`
+3. Run tests: `npm test`
+4. Build for production: `npm run build`
 
-**Use your preferred IDE**
+## Revvel-standards baseline
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+This repository includes the required baseline docs and validation checks:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `CHANGELOG.md`
+- `DEPLOYMENT_GUIDE.md`
+- `GO_TO_MARKET.md`
+- `BRAND_GUIDELINES.md`
+- `SECURITY.md`
+- `scripts/test-baseline.js`
+- `scripts/build-baseline.js`
 
-Follow these steps:
+Run baseline checks with:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- `npm run baseline:test`
+- `npm run baseline:build`
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Project value and priority
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-
----
-
-## Test
-
-| Feature | Status |
-|---------|--------|
-| Feature | ✅ Ready |
-
+SubKill is positioned as a cost-optimization and retention-intelligence product for consumers and SMB owners. The immediate priority is reliable auth, accurate recurring-spend visibility, and fast onboarding, because those are the highest-leverage drivers for trial-to-paid conversion.
