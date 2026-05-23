@@ -8,6 +8,8 @@ export const REQUIRED_DOC_FILES = [
   "GO_TO_MARKET.md",
   "BRAND_GUIDELINES.md",
   "SECURITY.md",
+  "research/ASSETS.md",
+  "research/ARTIFACTS.md",
 ];
 
 export const REQUIRED_APP_FILES = [

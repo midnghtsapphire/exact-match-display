@@ -9,6 +9,8 @@
   - `GO_TO_MARKET.md`
   - `BRAND_GUIDELINES.md`
   - `SECURITY.md`
+  - `research/ASSETS.md`
+  - `research/ARTIFACTS.md`
 - Baseline validation scripts:
   - `scripts/test-baseline.js`
   - `scripts/build-baseline.js`

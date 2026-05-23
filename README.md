@@ -29,6 +29,8 @@ This repository includes the required baseline docs and validation checks:
 - `GO_TO_MARKET.md`
 - `BRAND_GUIDELINES.md`
 - `SECURITY.md`
+- `research/ASSETS.md`
+- `research/ARTIFACTS.md`
 - `scripts/test-baseline.js`
 - `scripts/build-baseline.js`
 
