@@ -31,6 +31,7 @@ This repository includes the required baseline docs and validation checks:
 - `SECURITY.md`
 - `research/ASSETS.md`
 - `research/ARTIFACTS.md`
+- `research/SUGGESTIONS.md`
 - `scripts/test-baseline.js`
 - `scripts/build-baseline.js`
 

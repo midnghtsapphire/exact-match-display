@@ -20,3 +20,4 @@ This file tracks concrete outputs generated from the research assets for launch 
 ## Traceability
 
 Primary downstream documentation: `GO_TO_MARKET.md`.
+Recommended follow-on actions: `research/SUGGESTIONS.md`.

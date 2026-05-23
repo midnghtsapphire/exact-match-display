@@ -10,6 +10,7 @@ export const REQUIRED_DOC_FILES = [
   "SECURITY.md",
   "research/ASSETS.md",
   "research/ARTIFACTS.md",
+  "research/SUGGESTIONS.md",
 ];
 
 export const REQUIRED_APP_FILES = [

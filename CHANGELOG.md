@@ -11,6 +11,7 @@
   - `SECURITY.md`
   - `research/ASSETS.md`
   - `research/ARTIFACTS.md`
+  - `research/SUGGESTIONS.md`
 - Baseline validation scripts:
   - `scripts/test-baseline.js`
   - `scripts/build-baseline.js`

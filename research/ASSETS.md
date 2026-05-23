@@ -11,4 +11,4 @@ This file tracks the reusable research inputs used to produce go-to-market outpu
 
 ## Maintenance rule
 
-When adding new campaign or feature research, update this asset list first, then publish outputs in `research/ARTIFACTS.md`.
+When adding new campaign or feature research, update this asset list first, publish outputs in `research/ARTIFACTS.md`, then add recommended next actions to `research/SUGGESTIONS.md`.
