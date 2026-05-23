@@ -8,7 +8,7 @@ import {
   REQUIRED_DOC_FILES,
 } from "../../scripts/revvel-baseline.js";
 
-const createFile = (rootDir: string, relativePath: string, contents = "test") => {
+const createTestFile = (rootDir: string, relativePath: string, contents = "test") => {
   const absolutePath = path.join(rootDir, relativePath);
   mkdirSync(path.dirname(absolutePath), { recursive: true });
   writeFileSync(absolutePath, contents);
@@ -17,7 +17,7 @@ const createFile = (rootDir: string, relativePath: string, contents = "test") =>
 describe("revvel baseline checks", () => {
   it("returns missing files and package scripts when requirements are absent", () => {
     const tempDir = mkdtempSync(path.join(tmpdir(), "revvel-baseline-missing-"));
-    createFile(tempDir, "package.json", JSON.stringify({ name: "test-project", scripts: {} }));
+    createTestFile(tempDir, "package.json", JSON.stringify({ name: "test-project", scripts: {} }));
 
     const result = collectMissingItems({ rootDir: tempDir });
 
@@ -30,9 +30,9 @@ describe("revvel baseline checks", () => {
     const tempDir = mkdtempSync(path.join(tmpdir(), "revvel-baseline-complete-"));
 
     [...REQUIRED_DOC_FILES, ...REQUIRED_APP_FILES].forEach((requiredFile) => {
-      createFile(tempDir, requiredFile);
+      createTestFile(tempDir, requiredFile);
     });
-    createFile(
+    createTestFile(
       tempDir,
       "package.json",
       JSON.stringify({
