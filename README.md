@@ -39,6 +39,8 @@ Run baseline checks with:
 - `npm run baseline:test`
 - `npm run baseline:build`
 
+Baseline checks also run automatically when executing `npm test` and `npm run build`.
+
 ## Project value and priority
 
 SubKill is positioned as a cost-optimization and retention-intelligence product for consumers and SMB owners. The immediate priority is reliable auth, accurate recurring-spend visibility, and fast onboarding, because those are the highest-leverage drivers for trial-to-paid conversion.

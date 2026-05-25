@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { tmpdir } from "node:os";
 import { describe, expect, it } from "vitest";
@@ -45,5 +45,28 @@ describe("revvel baseline checks", () => {
 
     expect(result.missingFiles).toEqual([]);
     expect(result.missingScripts).toEqual([]);
+  });
+
+  it("wires baseline checks into test and build scripts", () => {
+    const packageJsonPath = path.resolve(process.cwd(), "package.json");
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
+      scripts?: Record<string, string>;
+    };
+    const testScript = packageJson.scripts?.test ?? "";
+    const buildScript = packageJson.scripts?.build ?? "";
+
+    expect(testScript).toContain("node scripts/test-baseline.js");
+    expect(testScript).toContain("vitest run");
+    expect(testScript).toContain("&&");
+    expect(testScript.indexOf("node scripts/test-baseline.js")).toBeLessThan(
+      testScript.indexOf("vitest run"),
+    );
+
+    expect(buildScript).toContain("node scripts/build-baseline.js");
+    expect(buildScript).toContain("vite build");
+    expect(buildScript).toContain("&&");
+    expect(buildScript.indexOf("node scripts/build-baseline.js")).toBeLessThan(
+      buildScript.indexOf("vite build"),
+    );
   });
 });
