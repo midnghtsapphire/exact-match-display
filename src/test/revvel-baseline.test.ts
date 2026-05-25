@@ -52,8 +52,21 @@ describe("revvel baseline checks", () => {
     const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
       scripts?: Record<string, string>;
     };
+    const testScript = packageJson.scripts?.test ?? "";
+    const buildScript = packageJson.scripts?.build ?? "";
 
-    expect(packageJson.scripts?.test).toContain("scripts/test-baseline.js");
-    expect(packageJson.scripts?.build).toContain("scripts/build-baseline.js");
+    expect(testScript).toContain("node scripts/test-baseline.js");
+    expect(testScript).toContain("vitest run");
+    expect(testScript).toContain("&&");
+    expect(testScript.indexOf("node scripts/test-baseline.js")).toBeLessThan(
+      testScript.indexOf("vitest run"),
+    );
+
+    expect(buildScript).toContain("node scripts/build-baseline.js");
+    expect(buildScript).toContain("vite build");
+    expect(buildScript).toContain("&&");
+    expect(buildScript.indexOf("node scripts/build-baseline.js")).toBeLessThan(
+      buildScript.indexOf("vite build"),
+    );
   });
 });
