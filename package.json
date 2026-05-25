@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-baseline.js && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "node scripts/test-baseline.js && vitest run",
     "test:watch": "vitest",
     "baseline:test": "node scripts/test-baseline.js",
     "baseline:build": "node scripts/build-baseline.js"

@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { tmpdir } from "node:os";
 import { describe, expect, it } from "vitest";
@@ -45,5 +45,15 @@ describe("revvel baseline checks", () => {
 
     expect(result.missingFiles).toEqual([]);
     expect(result.missingScripts).toEqual([]);
+  });
+
+  it("wires baseline checks into test and build scripts", () => {
+    const packageJsonPath = path.resolve(process.cwd(), "package.json");
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
+      scripts?: Record<string, string>;
+    };
+
+    expect(packageJson.scripts?.test).toContain("scripts/test-baseline.js");
+    expect(packageJson.scripts?.build).toContain("scripts/build-baseline.js");
   });
 });
