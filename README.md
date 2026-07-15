@@ -1,5 +1,9 @@
 # Exact Match Display (SubKill)
 
+
+<!-- AUTO-PACKAGE-BADGES:START -->
+
+<!-- AUTO-PACKAGE-BADGES:END -->
 Exact Match Display is a React + Supabase web app for tracking recurring subscriptions, spotting waste, and managing cancellations from a single dashboard.
 
 ## Website in Test (Vercel)
